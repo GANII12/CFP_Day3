@@ -1,5 +1,7 @@
 package com.example.day3.services;
 
+import com.example.day3.dto.GreetingDto;
+import com.example.day3.exception.UserException;
 import com.example.day3.model.Greeting;
 import com.example.day3.repository.GreetingRepo;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ public class GreetingService {
         return greetingRepo.findAll();
     }
 
-    public Greeting createContact(Greeting greeting){
+    public Greeting createContact(GreetingDto greeting){
         Greeting greetingData = new Greeting(greeting.getfName(), greeting.getlName());
         Greeting data = greetingRepo.save(greetingData);
         return data;
@@ -32,14 +34,24 @@ public class GreetingService {
         return greetingRepo.save(new Greeting(counter.incrementAndGet() , message));
     }
 
-    public Optional<Greeting> editGreetingById(long id, String name) {
-    }
+//    public Optional<Greeting> editGreetingById(long id, String name) {
+//    }
 
     public void delete(long id) {
+    }
+    public Greeting getUserById(long id){
+        return greetingRepo.findById(id).orElseThrow(() -> new UserException("User with Id :" + id + "does not exists"));
     }
 
 //    @Override
 //    public  Greeting getGreetingById(long id){
 //        return greetingRepo.findById(id).get();
 //    }
+    public Greeting updateContactData(long id , GreetingDto greetingDto){
+        Greeting contactData = this.getUserById(id);
+        contactData.contactGreeting(greetingDto);
+        greetingRepo.deleteAll();
+        greetingRepo.deleteById(id);
+        return greetingRepo.save(contactData);
+    }
 }

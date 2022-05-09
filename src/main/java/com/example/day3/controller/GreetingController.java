@@ -40,10 +40,11 @@ public class GreetingController {
     public List<Greeting> getAll(){
     return greetingService.getAllUsers();
     }
-    @PutMapping("/editGreeting/{id}")
-    public Optional<Greeting> editGreetingById(@PathVariable("id") long id , @RequestParam(value = "name") String name){
-        return greetingService.editGreetingById(id , name);
-    }
+
+//    @PutMapping("/editGreeting/{id}")
+//    public Optional<Greeting> editGreetingById(@PathVariable("id") long id , @RequestParam(value = "name") String name){
+//        return greetingService.editGreetingById(id , name);
+//    }
     @DeleteMapping("/delete")
     public void deleteById(@RequestParam(name = "id") long id){
         greetingService.delete(id);
@@ -65,10 +66,10 @@ public class GreetingController {
         return "Hello" + name + "!";
     }
 
-    @PostMapping("/post")
-    public String sayHello(@RequestParam Greeting greeting){
-        return "Hello" + greeting.getfName()+ " " + greeting.getlName()+ "!";
-    }
+//    @PostMapping("/post")
+//    public String sayHello(@RequestParam Greeting greeting){
+//        return "Hello" + greeting.getfName()+ " " + greeting.getlName()+ "!";
+//    }
 
     @PutMapping("/put/firstName")
     public String sayHello(@PathVariable String firstName, @RequestParam(value = "lastName") String lastName){
@@ -80,10 +81,10 @@ public class GreetingController {
 //        return new Greeting(counter.incrementAndGet(), String.format(template, name));
 //    }
 
-//    @PostMapping("/postGreeting")
-//    public Greeting sayHello(@RequestBody Greeting greeting){
-//        return new Greeting(counter.incrementAndGet(), String.format(template, greeting.getContent()));
-//    }
+    @PostMapping("/postGreeting")
+    public Greeting sayHello(@RequestBody Greeting greeting){
+        return new Greeting(counter.incrementAndGet(), String.format(template, greeting.getContent()));
+    }
 
     @PutMapping("/putMapping/{counter}")
     public Greeting sayHello(@PathVariable long counter , @RequestParam(value = "content")String content){

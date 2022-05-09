@@ -1,5 +1,6 @@
 package com.example.day3.model;
 
+import com.example.day3.dto.GreetingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
@@ -21,6 +22,11 @@ public class Greeting {
     public Greeting(String fName, String lName) {
         this.fName = fName;
         this.lName = lName;
+    }
+
+    public void contactGreeting(GreetingDto greetingDto){
+        this.fName = greetingDto.fName;
+        this.lName = greetingDto.lName;
     }
 
     public String getfName() {
